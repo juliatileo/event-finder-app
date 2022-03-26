@@ -9,7 +9,8 @@
   "scripts": {
     "dev": "tsnd -r tsconfig-paths/register  --rs --respawn --transpile-only --ignore-watch node_modules --no-notify src/server.ts",
     "pretest": "cross-env NODE_ENV=test",
-    "test": "jest --verbose --maxWorkers=50%"
+    "test": "jest --verbose --maxWorkers=50%",
+    "typecheck": "tsc --project tsconfig.json --noEmit"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

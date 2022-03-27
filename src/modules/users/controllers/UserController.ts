@@ -10,7 +10,9 @@ import { CreateUserBody } from '../dtos/CreateUserBody';
 @JsonController('/users')
 export class UserController {
   @Post('/')
-  async create(@Body() body: CreateUserBody): Promise<User> {
+  async create(
+    @Body() body: CreateUserBody
+  ): Promise<{ user: User; token: string }> {
     const createUser: CreateUserUseCase = container.resolve(CreateUserUseCase);
 
     return createUser.execute(body);

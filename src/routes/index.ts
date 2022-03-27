@@ -11,12 +11,15 @@ import { validationMetadatasToSchemas } from 'class-validator-jsonschema';
 import swaggerUi from 'swagger-ui-express';
 import path from 'path';
 
+import { authorizationChecker } from '@shared/middlewares/AuthorizationChecker';
+
 export function routes(app: Express): Express {
   const options: RoutingControllersOptions = {
     validation: true,
     cors: true,
     routePrefix: '/api/v1',
     defaultErrorHandler: false,
+    authorizationChecker,
     controllers: [
       path.join(__dirname, '..', '/modules/**/controllers/*{.ts,.js}'),
     ],

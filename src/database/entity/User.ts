@@ -21,7 +21,7 @@ export class User {
   @Column({ unique: true })
   email: string;
 
-  @Column()
+  @Column({ select: false })
   password: string;
 
   @CreateDateColumn()
@@ -34,7 +34,7 @@ export class User {
   deleted_at: Date;
 
   @BeforeInsert()
-  async hashPassword(): Promise<void> {
+  async hashPassword?(): Promise<void> {
     this.password = await hash(this.password, 8);
   }
 }

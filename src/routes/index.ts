@@ -12,6 +12,7 @@ import swaggerUi from 'swagger-ui-express';
 import path from 'path';
 
 import { authorizationChecker } from '@shared/middlewares/AuthorizationChecker';
+import { currentUserChecker } from '@shared/middlewares/CurrentUserChecker';
 
 export function routes(app: Express): Express {
   const options: RoutingControllersOptions = {
@@ -20,6 +21,7 @@ export function routes(app: Express): Express {
     routePrefix: '/api/v1',
     defaultErrorHandler: false,
     authorizationChecker,
+    currentUserChecker,
     controllers: [
       path.join(__dirname, '..', '/modules/**/controllers/*{.ts,.js}'),
     ],

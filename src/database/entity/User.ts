@@ -4,13 +4,15 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-
 import { hash } from 'bcryptjs';
 
-@Entity()
+import { Event } from '.';
+
+@Entity({ name: 'users' })
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
@@ -23,6 +25,9 @@ export class User {
 
   @Column({ select: false })
   password: string;
+
+  @OneToMany(() => Event, (events) => events.User)
+  events: Event[];
 
   @CreateDateColumn()
   created_at: Date;

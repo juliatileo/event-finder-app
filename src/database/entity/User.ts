@@ -4,6 +4,7 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -28,6 +29,9 @@ export class User {
 
   @OneToMany(() => Event, (events) => events.User)
   events: Event[];
+
+  @ManyToMany(() => Event, (user_events) => user_events.users)
+  user_events: Event[];
 
   @CreateDateColumn()
   created_at: Date;

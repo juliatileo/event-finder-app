@@ -19,10 +19,11 @@ import { Event } from '@database/entity';
 import { CreateEventUseCase } from '../useCases/createEvent/CreateEventUseCase';
 import { ListEventsUseCase } from '../useCases/listEvents/ListEventsUseCase';
 import { DeleteEventUseCase } from '../useCases/deleteEvent/DeleteEventUseCase';
+import { UpdateEventUseCase } from '../useCases/updateEvent/UpdateEventUseCase';
+import { AttendEventUseCase } from '../useCases/attendEvent/AttendEventUseCase';
 
 import { CreateEventBody } from '../dtos/CreateEventBody';
 import { UpdateEventBody } from '../dtos/UpdateEventBody';
-import { UpdateEventUseCase } from '../useCases/updateEvent/UpdateEventUseCase';
 
 @JsonController('/events')
 export class EventController {
@@ -44,6 +45,18 @@ export class EventController {
       container.resolve(CreateEventUseCase);
 
     return createEvent.execute(data, id);
+  }
+
+  @Authorized()
+  @Post('/attend/:event_id')
+  async attend(
+    @Param('event_id') eventId: number,
+    @CurrentUser() { id }: Session
+  ): Promise<Event> {
+    const attendEvent: AttendEventUseCase =
+      container.resolve(AttendEventUseCase);
+
+    return attendEvent.execute(eventId, id);
   }
 
   @Authorized()

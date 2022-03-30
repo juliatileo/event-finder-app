@@ -1,4 +1,9 @@
-import { DeepPartial, Repository, MoreThanOrEqual } from 'typeorm';
+import {
+  DeepPartial,
+  Repository,
+  MoreThanOrEqual,
+  FindOneOptions,
+} from 'typeorm';
 
 import { dataSource } from '@database/index';
 import { Event } from '@database/entity';
@@ -8,8 +13,11 @@ import { IEventRepository } from './interfaces/IEventRepository';
 export class EventRepository implements IEventRepository {
   private repository: Repository<Event> = dataSource.getRepository(Event);
 
-  async findById(eventId: number): Promise<Event> {
-    return this.repository.findOneBy({ id: eventId });
+  async findById(
+    eventId: number,
+    options: FindOneOptions<Event>
+  ): Promise<Event> {
+    return this.repository.findOne({ where: { id: eventId }, ...options });
   }
 
   async list(past: boolean): Promise<Event[]> {

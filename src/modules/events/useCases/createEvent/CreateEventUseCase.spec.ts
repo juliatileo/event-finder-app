@@ -1,4 +1,4 @@
-import { endOfMonth, format, subDays } from 'date-fns';
+import { addDays, format, subDays } from 'date-fns';
 
 import { AppError } from '@errors/AppError';
 
@@ -27,7 +27,7 @@ describe('CreateEventUseCase', () => {
 
   it('should be able to create an event', async () => {
     const { id } = await userRepositoryInMemory.create({ id: 1 });
-    const date: string = format(endOfMonth(new Date()), 'yyyy-MM-dd');
+    const date: string = format(addDays(new Date(), 1), 'yyyy-MM-dd');
 
     const event: Event = await createEventUseCase.execute(
       {
@@ -64,7 +64,7 @@ describe('CreateEventUseCase', () => {
         {
           name: 'test',
           organizer: 'test',
-          date: format(endOfMonth(new Date()), 'yyyy-MM-dd'),
+          date: format(addDays(new Date(), 1), 'yyyy-MM-dd'),
         },
         0
       )

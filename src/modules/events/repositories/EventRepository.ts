@@ -3,6 +3,7 @@ import {
   Repository,
   MoreThanOrEqual,
   FindOneOptions,
+  FindManyOptions,
 } from 'typeorm';
 
 import { dataSource } from '@database/index';
@@ -20,11 +21,12 @@ export class EventRepository implements IEventRepository {
     return this.repository.findOne({ where: { id: eventId }, ...options });
   }
 
-  async list(past: boolean): Promise<Event[]> {
-    if (past) return this.repository.find();
+  async list(past: boolean, options: FindManyOptions<Event>): Promise<Event[]> {
+    if (past) return this.repository.find(options);
 
     return this.repository.find({
       where: { date: MoreThanOrEqual(new Date()) },
+      ...options,
     });
   }
 

@@ -1,4 +1,4 @@
-import { endOfMonth, subDays } from 'date-fns';
+import { addDays, subDays } from 'date-fns';
 
 import { Event } from '@database/entity';
 
@@ -19,7 +19,7 @@ describe('ListEventsUseCase', () => {
 
   it('should be able to list events', async () => {
     const event: Event = await eventRepositoryInMemory.create(
-      { id: 1, date: endOfMonth(new Date()) },
+      { id: 1, date: addDays(new Date(), 1) },
       1
     );
 

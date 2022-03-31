@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  event-finder-app:
+    container_name: event-finder-app
+    image: juliatileo/event-finder-app
+    build:
+      context: .
+    ports:
+      - '8080:8080'
+    environment:
+      - DB_USER=postgres
+      - DB_PASS=3110
+      - DB_NAME=event_db
+      - DB_HOST=db
+      - PORT=8080
+    depends_on:
+      - db
+  db:
+    container_name: db
+    image: 'postgres:alpine'
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=3110
+      - POSTGRES_DB=event_db
+    volumes:
+      - pgdata1:/var/lib/postgresql/data
+
+volumes:
+  pgdata1: {}

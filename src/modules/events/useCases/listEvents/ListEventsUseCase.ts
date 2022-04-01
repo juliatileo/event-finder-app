@@ -11,6 +11,6 @@ export class ListEventsUseCase {
   ) {}
 
   async execute(past: boolean): Promise<Event[]> {
-    return this.eventRepository.list(past);
+    return this.eventRepository.list(past, { relations: ['User', 'users'] });
   }
 }

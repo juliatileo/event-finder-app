@@ -10,6 +10,7 @@
     "dev": "tsnd -r tsconfig-paths/register  --rs --respawn --transpile-only --ignore-watch node_modules --no-notify src/server.ts",
     "pretest": "cross-env NODE_ENV=test",
     "test": "jest --verbose --maxWorkers=50%",
+    "test:coverage": "jest --coverage",
     "typecheck": "tsc --project tsconfig.json --noEmit"
   },
   "dependencies": {
